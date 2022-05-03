@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = SECRET_KEY
 
 @app.route('/')
 def index():
-    conn = psycopg2.connect('dbname=retro_marketplace')
+    conn = psycopg2.connect(DATABASE_URL)
     cur = conn.cursor()
     cur.execute('SELECT id, image_url, name, price_in_cents FROM ads')
     results = cur.fetchall()
@@ -74,6 +74,12 @@ def login_action():
   else:
       return redirect('/login')
   return redirect('/login')
+
+@app.route('/logout')
+def log_out():
+  session.clear()
+  return redirect('/')
+
 
 if __name__ == "__main__":
     app.run(debug=True)

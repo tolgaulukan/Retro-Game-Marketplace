@@ -1,14 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-
-
-<p class="featured">Featured Items</p>
-    <div class="box">
-        {{names[0]}} ${{prices[0]}}
-        <img src="{{images[0]}}" class="img1" alt="">
-        {{names[1]}} ${{prices[1]}}.0
-        <img src="{{images[1]}}" class="img2" alt="">
-    </div>
-    
+<div class="container1">
+    <a class="game_library"  href="/game_library"><img src="https://cdn.pixabay.com/photo/2020/05/17/11/08/nes-5181088_960_720.jpg"></a>
+    <div class="game_library_text">See Our Full List Of Games For Sale</div>
+    <a class="add_game"  href="/game_library"><img src="https://cdn.pixabay.com/photo/2020/04/17/18/29/playstation-5056411_960_720.jpg"></a>
+    <div class="add_game_text">Sell Something</div>
+</div>
 
 {% endblock %}
