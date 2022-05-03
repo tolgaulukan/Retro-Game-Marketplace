@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
+<p> {% for i in range(length)%} 
+    {{names[i]}}
+    <img src="{{images[i]}}"  alt="">
+    
+       
+</p>
 
-
+{% endfor %}
 {% endblock %}

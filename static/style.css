@@ -6,8 +6,8 @@ header {
 }
 body {
     background-color: rgb(255, 255, 255);
+    font-family: 'Ubuntu', sans-serif;
 }
-
 .centred {
     width: 70vw;
     min-width: 600px;
@@ -15,21 +15,25 @@ body {
     align-items: center;
     justify-content: space-around;
     margin: auto;
+    flex-direction: column;
 }
 
 .home {
     text-align: center;
     font-size: 25px;
 }
-
+img {
+    max-width: 400px;
+}
 a {
-    font-size: 25px;
+    font-size: 20px;
     font-family: 'Ubuntu', sans-serif;
     text-decoration: none;
     position: relative;
     letter-spacing: 0.5px;
     padding: 0 10px;
     color: red;
+    margin-top: 20px;
 }
 a:after {
     content: "";
@@ -44,7 +48,51 @@ a:after {
 a:hover:after{
     width: 100%;
 }
+
+.search_box {
+    position: absolute;
+    right: 20px;
+    transform: translate(-50%, -50%);
+    background: #929292;
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px;
+}
+.search_btn {
+    color: rgb(255, 255, 255) !important;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #545353;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+}
+::placeholder {
+    color: white;
+}
+.search_txt {
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: white;
+    font-size: 20px;
+    transition: 0.4s;
+    line-height: 40px;
+    width: 0px;
+}
+.search_box:hover > .search_txt {
+    width: 240px;
+    padding: 0 6px;
+}
+.search_box:hover > .search_btn {
+    background-color: white;
+}
 .logo {
-    max-width:13%;
+    max-width:14%;
     border-radius: 30px;
 }

@@ -5,13 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://kit.fontawesome.com/e5dab02a96.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="static/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Londrina+Shadow&family=Ubuntu&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Londrina+Shadow&family=Ubuntu:wght@400;500&display=swap" rel="stylesheet">
 </head> 
-
+<!-- References:
+search bar: https://www.youtube.com/watch?v=v1PeTDrw6OY -->
 <header>
     <img class='logo' src="/static/Retro Bazaar-logos.jpeg" alt="">
 
@@ -22,6 +24,19 @@
     <nav class="centred">
         <a class="home_link" href="/">Home</a>
         <a class="game_library" href="/game_library">See Our Full List Of Games For Sale</a>
+        {% if session['user_id']  %}
+            <p>Logged in as {{ session['name'] }}</p>
+            <a href="/logout">Log Out</a>
+        {% else %}
+            <a href="/login">Login</a>
+        {% endif %}
+        <div class="search_box">
+            <input class="search_txt" type="text" placeholder="search">
+            <a class="search-btn" href="#">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </a>
+            
+        </div>
     </nav>
     
         

@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% for i in range(length)%}
-<p>{{names[i]}} </p>
-    <img src="{{images[i]}}" alt="">
-{% endfor %}
+
+<p class="featured">Featured Items</p>
+    <div class="box">
+        {{names[0]}} ${{prices[0]}}
+        <img src="{{images[0]}}" class="img1" alt="">
+        {{names[1]}} ${{prices[1]}}.0
+        <img src="{{images[1]}}" class="img2" alt="">
+    </div>
+    
+
 {% endblock %}
