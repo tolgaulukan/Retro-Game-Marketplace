@@ -1,0 +1,50 @@
+header {
+    font-size: 50px;
+    text-align: center;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: white;
+}
+body {
+    background-color: rgb(255, 255, 255);
+}
+
+.centred {
+    width: 70vw;
+    min-width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: auto;
+}
+
+.home {
+    text-align: center;
+    font-size: 25px;
+}
+
+a {
+    font-size: 25px;
+    font-family: 'Ubuntu', sans-serif;
+    text-decoration: none;
+    position: relative;
+    letter-spacing: 0.5px;
+    padding: 0 10px;
+    color: red;
+}
+a:after {
+    content: "";
+    position: absolute;
+    background-color: red;
+    height: 3px;
+    width: 0;
+    left: 0;
+    bottom: -10px;
+    transition: 0.3s;
+}
+a:hover:after{
+    width: 100%;
+}
+.logo {
+    max-width:13%;
+    border-radius: 30px;
+}
