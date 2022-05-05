@@ -7,6 +7,7 @@ header {
 body {
     background-color: rgb(255, 255, 255);
     font-family: 'Ubuntu', sans-serif;
+    margin: auto;
 }
 .logged_in {
     font-family: 'Ubuntu', sans-serif;
@@ -60,6 +61,7 @@ body {
     font-size: 30px;
     width: 50%;
 }
+  
 .home {
     text-align: center;
     font-size: 25px;
@@ -98,9 +100,12 @@ a:hover:after{
     height: 40px;
     border-radius: 40px;
     padding: 10px;
+    
+    border: none;
+    
 }
 .search_btn {
-    color: rgb(255, 255, 255) !important;
+    color: rgb(203, 36, 36) !important;
     float: right;
     width: 40px;
     height: 40px;
@@ -128,18 +133,15 @@ header {
 }
 .game_library_text {
     position: absolute;
-    top: 12%;
-    right: 40%;
-    transform: translate(-50%, -50%);
     font-size: 20px;
+    left: 35.5%;
+    top: 38%;
 }
 .add_something_text {
     position: absolute;
-    max-width: 100%;
-    top: 12%;
-    left: 70%;
-    transform: translate(-50%, -50%);
+    right: 39%;
     font-size: 20px;
+    top: 38%;
 }
 footer {
     margin-top: 300px;

@@ -4,11 +4,7 @@
 <p id="ads"> 
     {{names[i]}}
     ${{prices[i]/10}}
-    <img src="{{images[i]}}"  alt=""> 
-    {% if session['user_id']  %} 
-    <button>Save to wish list &#10084;</button>  
-    {% endif %}
+    <img src="{{images[i]}}"  alt="">    
 </p>
-
 {% endfor %}
 {% endblock %}

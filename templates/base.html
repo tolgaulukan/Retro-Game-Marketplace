@@ -32,11 +32,13 @@ search bar: https://www.youtube.com/watch?v=v1PeTDrw6OY -->
         <a href="/signup">Sign Up</a>
         </div>
         
-        <div class="search_box">
-            <input class="search_txt" type="text" placeholder="search">
-            <a class="search-btn" href="#">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </a>
+        <div>
+            <form class="search_box" action="/searched_library" method="POST">
+                <input class="search_txt" type="text" placeholder="search" name="searched">
+                <button class="search_btn" type="submit" value="searched"><i class="fa-solid fa-magnifying-glass"></i></button>
+                
+            </form>
+            
         </div>
     </nav>
     {% if session['user_id']  %}

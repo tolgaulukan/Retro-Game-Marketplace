@@ -44,6 +44,28 @@ def display_games():
     length = len(names)
     return render_template('all_games.html',  id = id, names = names, images = images, prices = prices, length = length)
 
+@app.route('/searched_library', methods=['POST'])
+def dispay_searched_items():
+    searched_word = request.form.get('searched')
+    conn = psycopg2.connect('dbname=retro_marketplace')
+    cur = conn.cursor()
+    cur.execute('SELECT id, image_url, name, price_in_cents FROM ads')
+    results = cur.fetchall()
+    names = []
+    images = []
+    prices = []
+    id = []
+    print(searched_word)
+    for column in results:
+        print(column[2])
+        if searched_word in column[2]:
+            id.append(column[0])
+            names.append(column[2])
+            images.append(column[1])
+            prices.append(column[3])
+    length = len(names)
+    return render_template('searched_library.html',  id = id, names = names, images = images, prices = prices, length = length)
+
 @app.route('/login')
 def login():
   return render_template('login.html')
@@ -86,7 +108,7 @@ def log_out():
 def sign_up():
   return render_template('signup.html')
 
-@app.route('/signup', methods=['POST'])
+@app.route('/sign_up_action', methods=['POST'])
 def sign_up_action():
 
     user_email = request.form.get('email')
@@ -99,21 +121,27 @@ def sign_up_action():
     cur.execute('INSERT INTO users (email, password, name) VALUES (%s, %s, %s)', [user_email, hash_pw, user_name])
     conn.commit()
     conn.close()
+    login_action()
     return redirect('/')
 
 @app.route('/add_something')
 def add_something():
   return render_template('add_something.html')
 
-@app.route('/add_something', methods=['POST'])
+@app.route('/add_something_action', methods=['POST'])
 def add_something_action():
     item = request.form.get('item')
     price = request.form.get('price')
     image = request.form.get('image')
+    print(image)
     conn = psycopg2.connect('dbname=retro_marketplace')
     cur = conn.cursor()
     cur.execute('INSERT INTO ads (image_url, name, price_in_cents) VALUES (%s, %s, %s)', [image, item, price])
-    return redirect('/all_games.html')
+    conn.commit()
+    conn.close()
+    return redirect('/game_library')
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
