@@ -25,21 +25,23 @@ search bar: https://www.youtube.com/watch?v=v1PeTDrw6OY -->
         <div><a class="home_link" href="/">Home</a>
         
         {% if session['user_id']  %}
-            <p>Logged in as {{ session['name'] }}</p>
             <a href="/logout">Log Out</a>
         {% else %}
             <a href="/login">Login</a>
-        {% endif %}</div>
+        {% endif %}
+        <a href="/signup">Sign Up</a>
+        </div>
         
         <div class="search_box">
             <input class="search_txt" type="text" placeholder="search">
             <a class="search-btn" href="#">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </a>
-            
         </div>
     </nav>
-    
+    {% if session['user_id']  %}
+    <p class="logged_in">Logged in as {{ session['name'] }}</p>
+    {% endif %}
         
     
 {% block content %}

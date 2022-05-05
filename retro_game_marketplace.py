@@ -1,5 +1,6 @@
+from pickle import TRUE
 from flask import Flask, render_template, redirect, request, session
-import psycopg2, os
+import psycopg2, os, bcrypt
 
 DATABASE_URL = os.environ.get('DATABASE_URL', 'dbname=retro_marketplace')
 SECRET_KEY = os.environ.get('SECRET_KEY', 'pretend secret key')
@@ -50,36 +51,69 @@ def login():
 @app.route('/login', methods=['POST'])
 def login_action():
 
-  user_email = request.form.get('email')
-  user_password = request.form.get('password')
-  print(user_email)
-  conn = psycopg2.connect('dbname=retro_marketplace')
-  cur = conn.cursor()
+    user_email = request.form.get('email')
+    user_password = request.form.get('password')
+    print(user_email)
+    conn = psycopg2.connect('dbname=retro_marketplace')
+    cur = conn.cursor()
 
-  cur.execute('SELECT id, email, name, password FROM users WHERE email = %s;', [user_email])
-  results = cur.fetchone()
-  name = results[2]
-  email = results[1]
-  id = results[0]
-  password = results[3]
-  print(password)
-  conn.commit()
-  conn.close()
+    cur.execute('SELECT id, email, name, password FROM users WHERE email = %s;', [user_email])
+    results = cur.fetchone()
+    name = results[2]
+    email = results[1]
+    id = results[0]
+    password = results[3]
+    valid = bcrypt.checkpw(user_password.encode(), password.encode())
+    print(valid)
+    conn.commit()
+    conn.close()
 
-  if results != None:
-    if email == user_email and password == user_password:
-      session['name'] = name
-      session['user_id'] = id
-      return redirect('/')
-  else:
-      return redirect('/login')
-  return redirect('/login')
+    if results != None:
+        if email == user_email and valid:
+            session['name'] = name
+            session['user_id'] = id
+            return redirect('/')
+        else:
+            return redirect('/login')
+    return redirect('/login')
 
 @app.route('/logout')
 def log_out():
   session.clear()
   return redirect('/')
 
+@app.route('/signup')
+def sign_up():
+  return render_template('signup.html')
+
+@app.route('/signup', methods=['POST'])
+def sign_up_action():
+
+    user_email = request.form.get('email')
+    user_password = request.form.get('password')
+    user_name = request.form.get('name')
+    conn = psycopg2.connect('dbname=retro_marketplace')
+    cur = conn.cursor()
+
+    hash_pw = bcrypt.hashpw(user_password.encode(), bcrypt.gensalt()).decode()
+    cur.execute('INSERT INTO users (email, password, name) VALUES (%s, %s, %s)', [user_email, hash_pw, user_name])
+    conn.commit()
+    conn.close()
+    return redirect('/')
+
+@app.route('/add_something')
+def add_something():
+  return render_template('add_something.html')
+
+@app.route('/add_something', methods=['POST'])
+def add_something_action():
+    item = request.form.get('item')
+    price = request.form.get('price')
+    image = request.form.get('image')
+    conn = psycopg2.connect('dbname=retro_marketplace')
+    cur = conn.cursor()
+    cur.execute('INSERT INTO ads (image_url, name, price_in_cents) VALUES (%s, %s, %s)', [image, item, price])
+    return redirect('/all_games.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

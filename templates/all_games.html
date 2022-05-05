@@ -1,10 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<p> {% for i in range(length)%} 
+{% for i in range(length)%} 
+<p id="ads"> 
     {{names[i]}}
-    <img src="{{images[i]}}"  alt="">
-    
-       
+    <img src="{{images[i]}}"  alt="">    
 </p>
 
 {% endfor %}
