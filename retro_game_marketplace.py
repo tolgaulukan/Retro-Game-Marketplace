@@ -38,6 +38,9 @@ def index():
     length = len(names)
     return render_template('index.html', id = id, names = names, images = images, prices = prices, length = length)
 
+@app.route('/wishlist')
+    
+
 @app.route('/game_library')
 def display_games():
     conn = psycopg2.connect('dbname=retro_marketplace')
@@ -45,8 +48,6 @@ def display_games():
     cur.execute('SELECT id, image_url, name, price_in_cents, description, mobile FROM ads')
     
     results = cur.fetchall()
-
-
     names = []
     images = []
     prices = []

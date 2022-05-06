@@ -1,6 +1,6 @@
 DROP TABLE if exists ads;
 DROP TABLE if exists users;
-
+DROP TABLE if exists wishlist;
 CREATE TABLE ads (
     id serial PRIMARY KEY,
     name varchar(50) NOT NULL,
@@ -21,5 +21,5 @@ CREATE TABLE users (
 CREATE TABLE wishlist (
     id serial PRIMARY KEY, 
     name varchar(50),
-    customer id integer NOT NULL 
-)
+    customer_id integer NOT NULL
+);
