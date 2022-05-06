@@ -1,5 +1,6 @@
 from pickle import TRUE
 from flask import Flask, render_template, redirect, request, session
+from importlib_metadata import method_cache
 import psycopg2, os, bcrypt, requests
 
 DATABASE_URL = os.environ.get('DATABASE_URL', 'dbname=retro_marketplace')
@@ -38,8 +39,15 @@ def index():
     length = len(names)
     return render_template('index.html', id = id, names = names, images = images, prices = prices, length = length)
 
-@app.route('/wishlist')
-    
+# @app.route('/wishlist', methods=['POST'])
+# def add_to_wishlist():
+#     conn = psycopg2.connect('dbname=retro_marketplace')
+#     cur = conn.cursor()
+#     cur.execute('SELECT id, image_url, name, price_in_cents, description, mobile FROM ads')
+#     results = cur.fetchall()
+#     if request.form['wishlist_button'] == 'add_wishlist':
+            
+
 
 @app.route('/game_library')
 def display_games():
