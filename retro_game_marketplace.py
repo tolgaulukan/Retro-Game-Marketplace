@@ -1,9 +1,21 @@
 from pickle import TRUE
 from flask import Flask, render_template, redirect, request, session
-import psycopg2, os, bcrypt
+import psycopg2, os, bcrypt, requests
 
 DATABASE_URL = os.environ.get('DATABASE_URL', 'dbname=retro_marketplace')
 SECRET_KEY = os.environ.get('SECRET_KEY', 'pretend secret key')
+
+# url = "https://rawg-video-games-database.p.rapidapi.com/games"
+
+# headers = {
+# 	"X-RapidAPI-Host": "rawg-video-games-database.p.rapidapi.com",
+# 	"X-RapidAPI-Key": "88e0df8214764933a297e1f6dade78b1",
+#     "?query=Elden Ring"
+# }
+
+# response = requests.request("GET", url, headers=headers)
+
+# print(response.text)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -30,19 +42,25 @@ def index():
 def display_games():
     conn = psycopg2.connect('dbname=retro_marketplace')
     cur = conn.cursor()
-    cur.execute('SELECT id, image_url, name, price_in_cents FROM ads')
+    cur.execute('SELECT id, image_url, name, price_in_cents, description, mobile FROM ads')
+    
     results = cur.fetchall()
+
+
     names = []
     images = []
     prices = []
-    id = []
+    mobile = []
+    description = []
+    print(results)
     for column in results:
-        id.append(column[0])
         names.append(column[2])
         images.append(column[1])
         prices.append(column[3])
+        description.append(column[4])
+        mobile.append(column[5])
     length = len(names)
-    return render_template('all_games.html',  id = id, names = names, images = images, prices = prices, length = length)
+    return render_template('all_games.html',  id = id, names = names, images = images, prices = prices, length = length, mobile=mobile, description=description)
 
 @app.route('/searched_library', methods=['POST'])
 def dispay_searched_items():
