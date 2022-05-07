@@ -74,7 +74,7 @@ def display_games():
 @app.route('/searched_library', methods=['POST'])
 def dispay_searched_items():
     searched_word = request.form.get('searched')
-    conn = psycopg2.connect('dbname=retro_marketplace')
+    conn = psycopg2.connect(DATABASE_URL)
     cur = conn.cursor()
     cur.execute('SELECT id, image_url, name, price_in_cents, description, mobile FROM ads')
     results = cur.fetchall()
@@ -107,7 +107,7 @@ def login_action():
     user_email = request.form.get('email')
     user_password = request.form.get('password')
     print(user_email)
-    conn = psycopg2.connect('dbname=retro_marketplace')
+    conn = psycopg2.connect(DATABASE_URL)
     cur = conn.cursor()
 
     cur.execute('SELECT id, email, name, password FROM users WHERE email = %s;', [user_email])
@@ -145,7 +145,7 @@ def sign_up_action():
     user_email = request.form.get('email')
     user_password = request.form.get('password')
     user_name = request.form.get('name')
-    conn = psycopg2.connect('dbname=retro_marketplace')
+    conn = psycopg2.connect(DATABASE_URL)
     cur = conn.cursor()
 
     hash_pw = bcrypt.hashpw(user_password.encode(), bcrypt.gensalt()).decode()
@@ -167,7 +167,7 @@ def add_something_action():
     description = request.form.get('description')
     mobile = request.form.get('mobile')
     print(image)
-    conn = psycopg2.connect('dbname=retro_marketplace')
+    conn = psycopg2.connect(DATABASE_URL)
     cur = conn.cursor()
     cur.execute('INSERT INTO ads (image_url, name, price_in_cents, description, mobile) VALUES (%s, %s, %s, %s, %s)', [image, item, price, description, mobile])
     conn.commit()
