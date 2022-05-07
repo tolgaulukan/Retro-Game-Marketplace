@@ -2,8 +2,10 @@
 {% block content %}
 {% for i in range(length)%} 
 <p id="ads"> 
-    {{names[i]}}
-    ${{prices[i]/10}}
+    {{names[i]}}<br>
+    ${{prices[i]/10}}<br>
+    Contact me for more info: {{mobile[i]}} <br>
+        Description: {{description[i]}} <br>
     <img src="{{images[i]}}"  alt="">    
 </p>
 {% endfor %}

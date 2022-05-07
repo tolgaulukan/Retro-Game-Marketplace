@@ -76,12 +76,14 @@ def dispay_searched_items():
     searched_word = request.form.get('searched')
     conn = psycopg2.connect('dbname=retro_marketplace')
     cur = conn.cursor()
-    cur.execute('SELECT id, image_url, name, price_in_cents FROM ads')
+    cur.execute('SELECT id, image_url, name, price_in_cents, description, mobile FROM ads')
     results = cur.fetchall()
     names = []
     images = []
     prices = []
     id = []
+    mobile = []
+    description = []
     print(searched_word)
     for column in results:
         print(column[2])
@@ -90,8 +92,10 @@ def dispay_searched_items():
             names.append(column[2])
             images.append(column[1])
             prices.append(column[3])
+            description.append(column[4])
+            mobile.append(column[5])
     length = len(names)
-    return render_template('searched_library.html',  id = id, names = names, images = images, prices = prices, length = length)
+    return render_template('searched_library.html',  id = id, names = names, images = images, prices = prices, length = length, mobile=mobile, description=description)
 
 @app.route('/login')
 def login():
