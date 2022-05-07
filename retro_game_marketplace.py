@@ -1,6 +1,6 @@
 from pickle import TRUE
 from flask import Flask, render_template, redirect, request, session
-from importlib_metadata import method_cache
+
 import psycopg2, os, bcrypt, requests
 
 DATABASE_URL = os.environ.get('DATABASE_URL', 'dbname=retro_marketplace')
@@ -51,7 +51,7 @@ def index():
 
 @app.route('/game_library')
 def display_games():
-    conn = psycopg2.connect('dbname=retro_marketplace')
+    conn = psycopg2.connect(DATABASE_URL)
     cur = conn.cursor()
     cur.execute('SELECT id, image_url, name, price_in_cents, description, mobile FROM ads')
     
